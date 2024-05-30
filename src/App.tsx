@@ -156,11 +156,12 @@ function App() {
               ref={chartRef}
             />
             <Row gutter={[16, 16]} className="top-list">
-              {(topData || []).map((t) => (
+              {(topData || []).map((t, index) => (
                 <RegionItem
                   key={t.region}
                   item={t}
                   keyValue={unitKey[unit] as any}
+                  rank={index === 0 ? 100 : 100 - (index + 1) * 10}
                 />
               ))}
             </Row>
@@ -172,6 +173,7 @@ function App() {
               loading={isLoading}
               columns={cols}
               className="table-trade"
+              rowKey={"id"}
             />
           </div>
         </div>

@@ -40,6 +40,11 @@ export const initChartOption = {
   colorAxis: {
     min: 0,
   },
+  legend: {
+    layout: "vertical",
+    align: "left",
+    verticalAlign: "bottom",
+  },
   series: [
     {
       name: "Data",

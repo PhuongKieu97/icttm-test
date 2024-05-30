@@ -53,7 +53,7 @@ export function getTop(
 
   const totalGlobal = data.reduce((sum, item) => sum + item[key], 0);
 
-  const topRegions = getTopRegionsByUnit(groupedData, key, 5);
+  const topRegions = getTopRegionsByUnit(groupedData, key, 4);
 
   const result: RegionInfo[] = topRegions.map((regionInfo) => {
     const topCountries = getTopCountriesInRegion(

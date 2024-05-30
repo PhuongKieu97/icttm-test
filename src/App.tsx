@@ -1,16 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import React, { useMemo } from "react";
-import { Radio, RadioChangeEvent, Spin } from "antd";
+import { Radio, RadioChangeEvent, Row, Spin, Table } from "antd";
 import { useState } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highmaps";
 import worldMap from "@highcharts/map-collection/custom/world.geo.json";
+import { useQuery } from "@tanstack/react-query";
 
 import "./App.css";
-import { ChartData, UnitEnum, initChartOption } from "./interfaces/chart";
+import {
+  ChartData,
+  RegionInfo,
+  UnitEnum,
+  initChartOption,
+} from "./interfaces/chart";
 import { myRandom } from "./utils/random";
-import { useQuery } from "@tanstack/react-query";
+import { getTop } from "./utils/getTop";
+import RegionItem from "./components/region-item";
 
 const unitKey: Record<UnitEnum, string> = {
   [UnitEnum.SHIPMENTS]: "shipments",
@@ -32,6 +39,7 @@ function App() {
   const { data: res, isLoading } = useQuery({
     queryKey: ["chart-data"],
     queryFn: getChartData1,
+    refetchOnWindowFocus: false,
   });
 
   const chartData = useMemo<ChartData[]>(() => {
@@ -75,9 +83,47 @@ function App() {
     return options;
   }, [unit, chartData]);
 
+  const topData = useMemo<RegionInfo[]>(() => {
+    const key = unitKey[unit];
+
+    return getTop(chartData, key as any);
+  }, [chartData, unit]);
+
   const handleOnChangeUnit = (e: RadioChangeEvent) => {
     setUnit(e.target.value as UnitEnum);
   };
+
+  const cols = [
+    {
+      title: "Country",
+      dataIndex: "region",
+      key: "region",
+    },
+    {
+      title: "Shipments",
+      dataIndex: "shipments",
+      key: "shipments",
+      render: (_: any, value: ChartData) => <span>{value.shipments}</span>,
+    },
+    {
+      title: "Weight",
+      dataIndex: "weight",
+      key: "weight",
+      render: (_: any, value: ChartData) => <span>{value.weight}</span>,
+    },
+    {
+      title: "TEU",
+      dataIndex: "teu",
+      key: "teu",
+      render: (_: any, value: ChartData) => <span>{value.teu}</span>,
+    },
+    {
+      title: "Value",
+      dataIndex: "value",
+      key: "value",
+      render: (_: any, value: ChartData) => <span>{value.value || "--"}</span>,
+    },
+  ];
 
   return (
     <div className="my-app">
@@ -86,7 +132,7 @@ function App() {
           <div className="top">
             <div className="header">
               <div className="left">
-                <span className="title">Top 5 Trading Area</span>
+                <p className="title">Top 5 Trading Area</p>
               </div>
               <div className="right">
                 <span className="unit-by">Unit By: </span>
@@ -109,8 +155,25 @@ function App() {
               updateArgs={[true, true, true]}
               ref={chartRef}
             />
+            <Row gutter={[16, 16]} className="top-list">
+              {(topData || []).map((t) => (
+                <RegionItem
+                  key={t.region}
+                  item={t}
+                  keyValue={unitKey[unit] as any}
+                />
+              ))}
+            </Row>
           </div>
-          <div className="bottom"></div>
+          <div className="bottom">
+            <p className="title">Trade Country Table Data</p>
+            <Table
+              dataSource={chartData}
+              loading={isLoading}
+              columns={cols}
+              className="table-trade"
+            />
+          </div>
         </div>
       </Spin>
     </div>

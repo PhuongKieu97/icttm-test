@@ -8,7 +8,6 @@
   margin: auto;
   background: #e8e6e680;
   width: 100vw;
-  height: 100vh;
   padding: 35px 50px;
 }
 
@@ -26,7 +25,7 @@
   margin-bottom: 25px;
 }
 
-.header .left span {
+p.title {
   font-size: 28px;
   font-weight: bold;
 }
@@ -34,4 +33,41 @@
 .header .right .unit-by {
   font-weight: 600;
   font-size: 18px;
+}
+
+.card-content h2 {
+  font-weight: 600;
+  color: grey;
+  text-align: center;
+}
+
+.card-content p {
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+}
+
+.card-content .label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.card-content .item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom {
+  margin-top: 35px;
+}
+
+.table-trade {
+  margin-top: 30px;
+}
+
+.top-list {
+  margin-top: 35px;
 }

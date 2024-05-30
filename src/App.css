@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.my-app {
+  margin: auto;
+  background: #e8e6e680;
+  width: 100vw;
+  height: 100vh;
+  padding: 35px 50px;
+}
+
+.section {
+  background: #fff;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.header .left span {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.header .right .unit-by {
+  font-weight: 600;
+  font-size: 18px;
+}

@@ -100,6 +100,11 @@ function App() {
       key: "name",
     },
     {
+      title: "Region",
+      dataIndex: "region",
+      key: "region",
+    },
+    {
       title: "Shipments",
       dataIndex: "shipments",
       key: "shipments",

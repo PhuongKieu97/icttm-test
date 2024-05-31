@@ -96,8 +96,8 @@ function App() {
   const cols = [
     {
       title: "Country",
-      dataIndex: "region",
-      key: "region",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Shipments",
